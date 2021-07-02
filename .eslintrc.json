@@ -21,7 +21,9 @@
 		"import/extensions": "off",
 		"no-use-before-define": "off",
 		"@typescript-eslint/no-use-before-define": ["error"],
-		"react/style-prop-object": "off"
+		"react/style-prop-object": "off",
+		"import/prefer-default-export": "off",
+		"react/prop-types": "off"
 	},
 	"settings": {
 		"import/resolver": {
