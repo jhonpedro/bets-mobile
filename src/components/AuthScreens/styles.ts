@@ -41,5 +41,6 @@ export const Copyright = styled.Text`
 	position: absolute;
 	font-size: ${getDimensions(0.85).rem};
 	font-weight: 100;
-	bottom: ${`${getDimensions(5).height}px`};
+	bottom: ${`${getDimensions(2).height}px`};
+	z-index: -1;
 `
