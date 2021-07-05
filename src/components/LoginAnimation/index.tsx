@@ -9,12 +9,12 @@ import {
 } from './styles'
 
 const LoginAnimation = () => {
-	const goUp = useRef(new Animated.Value(getDimensions().height * 2)).current
+	const goUp = useRef(new Animated.Value(getDimensions().height * 1.5)).current
 
 	useEffect(() => {
 		Animated.timing(goUp, {
 			toValue: getDimensions(1).height,
-			duration: 2000,
+			duration: 1000,
 			useNativeDriver: true,
 		}).start(() => {
 			setTimeout(() => {
