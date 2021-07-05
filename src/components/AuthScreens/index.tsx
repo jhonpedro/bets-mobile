@@ -9,21 +9,14 @@ import {
 	Copyright,
 } from './styles'
 
-interface AuthScreensProps {
-	showCopyright: boolean
-}
-
-const AuthScreens: React.FC<AuthScreensProps> = ({
-	children,
-	showCopyright,
-}) => (
+const AuthScreens: React.FC = ({ children }) => (
 	<AuthBoxContainer>
 		<AuthBoxTextContainer>
 			<AuthBoxTextTGL>TGL</AuthBoxTextTGL>
 			<AuthBoxLineBelowText> </AuthBoxLineBelowText>
 		</AuthBoxTextContainer>
 		<AuthBoxContent>{children}</AuthBoxContent>
-		{showCopyright && <Copyright>Copyright 2020 Luby Software</Copyright>}
+		<Copyright>Copyright 2020 Luby Software</Copyright>
 	</AuthBoxContainer>
 )
 
