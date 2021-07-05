@@ -10,7 +10,7 @@ export const AuthBoxContainer = styled.View`
 `
 
 export const AuthBoxTextContainer = styled.View`
-	height: 8%;
+	height: 60px;
 `
 
 export const AuthBoxTextTGL = styled(Text)`
