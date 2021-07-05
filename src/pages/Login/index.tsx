@@ -1,4 +1,5 @@
 import React from 'react'
+import { TouchableOpacity } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import { StackNavigationProp } from '@react-navigation/stack'
 
@@ -12,51 +13,106 @@ import colors from '../../assets/colors'
 import UpperText from '../../components/AuthScreens/Labels/UpperText'
 import LowerTextContainer from '../../components/AuthScreens/Labels/LowerTextContainer'
 import { AuthStackList } from '../../@types'
+import useTextInput from '../../hooks/useTextInput'
+import ErrorMessage from '../../components/AuthScreens/Inputs/ErrorMessage'
 
 import {
 	LoginContainer,
 	FooterContentContainer,
 	ForgotPasswordText,
 } from './styles'
+import emailValidator from '../../utils/emailValidator'
 
 interface LoginProps {
 	navigation: StackNavigationProp<AuthStackList>
 }
 
-const Login: React.FC<LoginProps> = ({ navigation }) => (
-	<LoginContainer>
-		<LoginAnimation />
-		<AuthScreens>
-			<UpperText>Authentication</UpperText>
-			<InputsBox>
-				<InputAuthScreens placeholder="Email" />
-				<InputAuthScreens placeholder="Password" secureTextEntry />
-				<FooterContentContainer>
-					<ForgotPasswordText onPress={() => navigation.push('ForgotPassword')}>
-						I forget my password
-					</ForgotPasswordText>
+const Login: React.FC<LoginProps> = ({ navigation }) => {
+	const [
+		emailInput,
+		setEmailInput,
+		isEmailInputValid,
+		showEmailError,
+		emailInputOnBlur,
+	] = useTextInput(emailValidator)
+	const [
+		passwordInput,
+		setPasswordInput,
+		isPasswordInputValid,
+		showPasswordError,
+		passwordInputOnBlur,
+	] = useTextInput((toValidate) => toValidate.length >= 6)
+
+	const handleLogIn = () => {
+		emailInputOnBlur()
+		passwordInputOnBlur()
+
+		if (!isEmailInputValid || !isPasswordInputValid) {
+			return
+		}
+	}
+
+	return (
+		<LoginContainer>
+			<LoginAnimation />
+			<AuthScreens>
+				<UpperText>Authentication</UpperText>
+				<InputsBox>
+					<ErrorMessage text="Invalid email" show={showEmailError} />
+					<InputAuthScreens
+						placeholder="Email"
+						borderBottomColorError={showEmailError}
+						value={emailInput}
+						onChangeText={setEmailInput}
+						onBlur={emailInputOnBlur}
+					/>
+					<ErrorMessage
+						text="Password should have at least 6 characters"
+						show={showPasswordError}
+					/>
+					<InputAuthScreens
+						placeholder="Password"
+						borderBottomColorError={showPasswordError}
+						secureTextEntry
+						value={passwordInput}
+						onChangeText={setPasswordInput}
+						onBlur={passwordInputOnBlur}
+					/>
+					<FooterContentContainer>
+						<ForgotPasswordText
+							onPress={() => navigation.push('ForgotPassword')}
+						>
+							I forget my password
+						</ForgotPasswordText>
+						<TouchableOpacity onPress={handleLogIn}>
+							<TextWithSVG
+								text="Log In"
+								textColor={colors.TGL_GREEN}
+								fontSize={getDimensions(1.8).rem}
+								svg={
+									<AntDesign
+										name="arrowright"
+										size={24}
+										color={colors.TGL_GREEN}
+									/>
+								}
+							/>
+						</TouchableOpacity>
+					</FooterContentContainer>
+				</InputsBox>
+				<LowerTextContainer onPress={() => navigation.push('SingUp')}>
 					<TextWithSVG
-						text="Log In"
-						textColor={colors.TGL_GREEN}
+						text="Sing up"
+						textColor={colors.FONT_DARK}
 						fontSize={getDimensions(1.8).rem}
 						svg={
-							<AntDesign name="arrowright" size={24} color={colors.TGL_GREEN} />
+							<AntDesign name="arrowright" size={24} color={colors.FONT_DARK} />
 						}
 					/>
-				</FooterContentContainer>
-			</InputsBox>
-			<LowerTextContainer onPress={() => navigation.push('SingUp')}>
-				<TextWithSVG
-					text="Sing up"
-					textColor={colors.FONT_DARK}
-					fontSize={getDimensions(1.8).rem}
-					svg={
-						<AntDesign name="arrowright" size={24} color={colors.FONT_DARK} />
-					}
-				/>
-			</LowerTextContainer>
-		</AuthScreens>
-	</LoginContainer>
-)
+				</LowerTextContainer>
+			</AuthScreens>
+		</LoginContainer>
+	)
+}
 
 export default Login
