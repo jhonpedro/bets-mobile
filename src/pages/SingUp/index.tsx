@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity } from 'react-native'
+import { Alert, TouchableOpacity, Keyboard } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import { StackNavigationProp } from '@react-navigation/stack'
 
@@ -17,6 +17,8 @@ import ErrorMessage from '../../components/AuthScreens/Inputs/ErrorMessage'
 import { SingUpContainer, FooterContentContainer } from './styles'
 import useTextInput from '../../hooks/useTextInput'
 import emailValidator from '../../utils/emailValidator'
+import adonis from '../../services/adonis'
+import useLoading from '../../hooks/useLoading'
 
 interface LoginProps {
 	navigation: StackNavigationProp<AuthStackList>
@@ -44,10 +46,37 @@ const SingUp: React.FC<LoginProps> = ({ navigation }) => {
 		showPasswordError,
 		passwordInputOnBlur,
 	] = useTextInput((toValidate) => toValidate.length >= 6)
+	const { handleShow } = useLoading()
 
-	const handleSingIn = () => {
+	const handleSingIn = async () => {
 		if (!isNameInputValid || !isEmailInputValid || !isPasswordInputValid) {
 			return
+		}
+		Keyboard.dismiss()
+		handleShow()
+
+		await new Promise((resolve) => {
+			setTimeout(resolve, 3000)
+		})
+
+		try {
+			await adonis.post('/users', {
+				name: nameInput,
+				email: emailInput,
+				password: passwordInput,
+				password_confirmation: passwordInput,
+			})
+
+			navigation.navigate('Login')
+			Alert.alert('Success', 'You have created your account!')
+		} catch (error) {
+			if (error.response.data[0]) {
+				Alert.alert('Oops!', error.response.data[0].message)
+				return
+			}
+			Alert.alert('Oops!', 'An error occurred, try again later')
+		} finally {
+			handleShow()
 		}
 	}
 
