@@ -1,5 +1,6 @@
 import React from 'react'
-import { TouchableOpacity } from 'react-native'
+import { useDispatch } from 'react-redux'
+import { Alert, TouchableOpacity, Keyboard } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import { StackNavigationProp } from '@react-navigation/stack'
 
@@ -15,13 +16,15 @@ import LowerTextContainer from '../../components/AuthScreens/Labels/LowerTextCon
 import { AuthStackList } from '../../@types'
 import useTextInput from '../../hooks/useTextInput'
 import ErrorMessage from '../../components/AuthScreens/Inputs/ErrorMessage'
+import { actionLoginRequest } from '../../store/reducers/auth/actions'
+import emailValidator from '../../utils/emailValidator'
+import useLoading from '../../hooks/useLoading'
 
 import {
 	LoginContainer,
 	FooterContentContainer,
 	ForgotPasswordText,
 } from './styles'
-import emailValidator from '../../utils/emailValidator'
 
 interface LoginProps {
 	navigation: StackNavigationProp<AuthStackList>
@@ -42,14 +45,34 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
 		showPasswordError,
 		passwordInputOnBlur,
 	] = useTextInput((toValidate) => toValidate.length >= 6)
+	const { handleShow } = useLoading()
+	const dispatch = useDispatch()
 
 	const handleLogIn = () => {
 		emailInputOnBlur()
 		passwordInputOnBlur()
+		handleShow()
+		Keyboard.dismiss()
 
 		if (!isEmailInputValid || !isPasswordInputValid) {
 			return
 		}
+
+		const action = actionLoginRequest({
+			email: emailInput,
+			password: passwordInput,
+			callbackSuccess: () => Alert.alert('Success', 'Now you are logged in'),
+			callbackFinally: handleShow,
+			callbackError: (error) =>
+				Alert.alert(
+					'Oops!',
+					error.response.data[0]
+						? error.response.data[0]
+						: 'Our machines stopped, we are putting them on agan. Try again later!'
+				),
+		})
+
+		dispatch(action)
 	}
 
 	return (
