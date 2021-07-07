@@ -21,4 +21,8 @@ export const actionLogIn = (payload: ActionLoginPayload): ActionLogin => ({
 
 export const actionLogOut = (): ActionLogout => ({ type: LOG_OUT })
 
-export type PossibleActions = ActionLogin | ActionLogout | { type: undefined }
+export type PossibleActions =
+	| ActionLogin
+	| ActionLogout
+	| ActionLoginRequest
+	| { type: undefined }
