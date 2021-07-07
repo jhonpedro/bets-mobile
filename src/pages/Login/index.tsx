@@ -1,5 +1,4 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
 import { Alert, TouchableOpacity, Keyboard } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -19,6 +18,7 @@ import ErrorMessage from '../../components/AuthScreens/Inputs/ErrorMessage'
 import { actionLoginRequest } from '../../store/reducers/auth/actions'
 import emailValidator from '../../utils/emailValidator'
 import useLoading from '../../hooks/useLoading'
+import useAppDispatch from '../../hooks/useAppDispatch'
 
 import {
 	LoginContainer,
@@ -46,7 +46,7 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
 		passwordInputOnBlur,
 	] = useTextInput((toValidate) => toValidate.length >= 6)
 	const { handleShow } = useLoading()
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	const handleLogIn = () => {
 		emailInputOnBlur()
@@ -61,15 +61,15 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
 		const action = actionLoginRequest({
 			email: emailInput,
 			password: passwordInput,
-			callbackSuccess: () => Alert.alert('Success', 'Now you are logged in'),
 			callbackFinally: handleShow,
-			callbackError: (error) =>
+			callbackError: (error) => {
 				Alert.alert(
 					'Oops!',
-					error.response?.data[0]
-						? error.response.data[0]
+					error.response.data[0]
+						? error.response.data[0].message
 						: 'Our machines stopped, sorry, we are putting them on again. Try again later!'
-				),
+				)
+			},
 		})
 
 		dispatch(action)
