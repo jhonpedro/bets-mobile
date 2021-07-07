@@ -51,12 +51,12 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
 	const handleLogIn = () => {
 		emailInputOnBlur()
 		passwordInputOnBlur()
-		handleShow()
-		Keyboard.dismiss()
-
 		if (!isEmailInputValid || !isPasswordInputValid) {
 			return
 		}
+
+		Keyboard.dismiss()
+		handleShow()
 
 		const action = actionLoginRequest({
 			email: emailInput,
@@ -66,9 +66,9 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
 			callbackError: (error) =>
 				Alert.alert(
 					'Oops!',
-					error.response.data[0]
+					error.response?.data[0]
 						? error.response.data[0]
-						: 'Our machines stopped, we are putting them on agan. Try again later!'
+						: 'Our machines stopped, sorry, we are putting them on again. Try again later!'
 				),
 		})
 
