@@ -15,10 +15,10 @@ function* requestSession(action: ActionLoginRequest) {
 		const response: AxiosResponse<SessionResponse> = yield call(
 			adonis.post,
 			'/session',
-			action.payload
+			{ email: action.payload.email, password: action.payload.password }
 		)
 
-		put(actionLogIn({ token: response.data.token }))
+		yield put(actionLogIn({ token: response.data.token }))
 
 		if (action.payload.callbackSuccess) action.payload.callbackSuccess()
 	} catch (error) {
