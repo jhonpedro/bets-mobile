@@ -23,7 +23,7 @@ const Loading: React.FC = () => {
 				),
 			]).start()
 		}
-	}, [show])
+	}, [show, fadeIn, spin])
 
 	const spinInterpolated = spin.interpolate({
 		inputRange: [0, 1],
@@ -64,6 +64,7 @@ const Loading: React.FC = () => {
 						borderColor: colors.TGL_GREEN,
 						borderBottomColor: 'rgba(0,0,0,0.0)',
 						transform: [{ rotate: spinInterpolated }],
+						opacity: fadeIn,
 					}}
 				/>
 			</View>
