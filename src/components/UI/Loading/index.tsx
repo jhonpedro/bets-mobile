@@ -4,13 +4,17 @@ import colors from '../../../assets/colors'
 import useLoading from '../../../hooks/useLoading'
 import getDimensions from '../../../utils/getDimensions'
 
-const Loading: React.FC = () => {
+interface LoadingProps {
+	instantShow?: boolean
+}
+
+const Loading: React.FC<LoadingProps> = ({ instantShow }) => {
 	const { show } = useLoading()
 	const fadeIn = useRef(new Animated.Value(0)).current
 	const spin = useRef(new Animated.Value(0)).current
 
 	useEffect(() => {
-		if (show) {
+		if (show || instantShow) {
 			Animated.parallel([
 				Animated.timing(fadeIn, { toValue: 1, useNativeDriver: true }),
 				Animated.loop(
@@ -30,7 +34,7 @@ const Loading: React.FC = () => {
 		outputRange: ['0deg', '360deg'],
 	})
 
-	return show ? (
+	return show || instantShow ? (
 		<Animated.View
 			style={{
 				position: 'absolute',
@@ -40,7 +44,7 @@ const Loading: React.FC = () => {
 				flex: 1,
 				justifyContent: 'center',
 				alignItems: 'center',
-				opacity: fadeIn,
+				opacity: instantShow ? 1 : fadeIn,
 			}}
 		>
 			<View
@@ -64,7 +68,6 @@ const Loading: React.FC = () => {
 						borderColor: colors.TGL_GREEN,
 						borderBottomColor: 'rgba(0,0,0,0.0)',
 						transform: [{ rotate: spinInterpolated }],
-						opacity: fadeIn,
 					}}
 				/>
 			</View>
