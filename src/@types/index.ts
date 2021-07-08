@@ -3,3 +3,7 @@ export type AuthStackList = {
 	ForgotPassword: undefined
 	SingUp: undefined
 }
+
+export type AppTabList = {
+	Home: undefined
+}
