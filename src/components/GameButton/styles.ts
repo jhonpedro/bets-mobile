@@ -7,6 +7,9 @@ interface GameButtonProps {
 }
 
 const GameButtonStyle = styled.Text<GameButtonProps>`
+	font-weight: bold;
+	margin-right: 5px;
+
 	padding-left: ${getDimensions(1.5).rem};
 	padding-right: ${getDimensions(1.5).rem};
 	padding-top: ${getDimensions(0.2).rem};
