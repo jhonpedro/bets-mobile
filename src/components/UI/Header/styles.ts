@@ -8,7 +8,7 @@ import colors from '../../../assets/colors'
 export const HeaderContainer = styled.View`
 	height: ${`${getDimensions(17).height}px`};
 	padding-top: ${`${StatusBar.currentHeight}px`};
-	padding-right: 5%;
+	padding-right: ${`${getDimensions(5).width}px`};
 	padding-left: ${`${getDimensions(5).width}px`};
 	background-color: white;
 	justify-content: space-between;
