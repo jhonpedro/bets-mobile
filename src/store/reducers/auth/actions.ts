@@ -25,7 +25,7 @@ export const actionLogOut = (): ActionLogout => ({ type: LOG_OUT })
 
 type RehydrateAction = {
 	type: typeof REHYDRATE
-	payload: RootState
+	payload: RootState | undefined
 }
 
 export type PossibleActions =
