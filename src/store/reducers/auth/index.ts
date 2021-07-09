@@ -26,9 +26,11 @@ const authReducer = (state = initialValue, action: PossibleActions) =>
 				break
 			}
 			case REHYDRATE: {
-				adonis.defaults.headers[
-					'Authorization'
-				] = `Bearer ${action.payload.auth.token}`
+				if (action.payload) {
+					adonis.defaults.headers[
+						'Authorization'
+					] = `Bearer ${action.payload.auth.token}`
+				}
 				break
 			}
 			default: {
