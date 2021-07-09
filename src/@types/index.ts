@@ -20,3 +20,14 @@ export type GameI = {
 }
 
 export type GamesI = Array<GameI>
+
+export interface BetI {
+	id: number
+	type: string
+	color: string
+	price: number
+	created_at: Date
+	numbers: number[]
+}
+
+export type BetsI = Array<BetI>
