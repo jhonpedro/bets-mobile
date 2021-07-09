@@ -25,3 +25,8 @@ export const BetsContainer = styled.ScrollView`
 	align-self: stretch;
 	height: ${`${getDimensions(60).height}px`};
 `
+
+export const NoBets = styled(Text)`
+	font-size: ${getDimensions(1).rem};
+	text-align: center;
+`
