@@ -3,29 +3,43 @@ import React from 'react'
 import { GamesI } from '../../@types'
 import GameButton from '../GameButton'
 
+import { GameButtonListContainer } from './styles'
+
 interface GameButtonListProps {
 	games: GamesI
-	activeGameType: string
-	// eslint-disable-next-line no-unused-vars
-	onGamePress: (type: string) => void
+	activeGames: string[]
+	onAddToCurrentFilter: (type: string) => void
+	onRemoveFromCurrentFilter: (type: string) => void
 }
 
 const GameButtonList: React.FC<GameButtonListProps> = ({
 	games,
-	activeGameType,
-	onGamePress,
-}) => (
-	<>
-		{games.map((game) => (
-			<GameButton
-				key={game.id}
-				type={game.type}
-				color={game.color}
-				active={activeGameType === game.type}
-				onPress={onGamePress}
-			/>
-		))}
-	</>
-)
+	activeGames,
+	onAddToCurrentFilter,
+	onRemoveFromCurrentFilter,
+}) => {
+	const handleOnGamePress = (type: string) => {
+		if (activeGames.includes(type)) {
+			onRemoveFromCurrentFilter(type)
+			return
+		}
+
+		onAddToCurrentFilter(type)
+	}
+
+	return (
+		<GameButtonListContainer horizontal>
+			{games.map((game) => (
+				<GameButton
+					key={game.id}
+					type={game.type}
+					color={game.color}
+					active={activeGames.includes(game.type)}
+					onPress={handleOnGamePress}
+				/>
+			))}
+		</GameButtonListContainer>
+	)
+}
 
 export default GameButtonList
