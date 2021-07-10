@@ -15,8 +15,8 @@ export const TabItemsWrapper = styled.TouchableOpacity`
 `
 
 export const BetIconContainer = styled.View`
-	width: ${getDimensions(6.5).rem};
-	height: ${getDimensions(6.5).rem};
+	width: ${getDimensions(6).rem};
+	height: ${getDimensions(6).rem};
 	border-width: 5px;
 	border-color: white;
 
@@ -24,10 +24,10 @@ export const BetIconContainer = styled.View`
 	border-radius: ${`${getDimensions().height}px`};
 	justify-content: center;
 	align-items: center;
-	transform: translateY(-50px);
+	transform: translateY(-40px);
 `
 
 export const BetIcon = styled.Image`
-	width: ${getDimensions(4).rem};
-	height: ${getDimensions(4).rem};
+	width: ${getDimensions(3.5).rem};
+	height: ${getDimensions(3.5).rem};
 `
