@@ -31,3 +31,9 @@ export interface BetI {
 }
 
 export type BetsI = Array<BetI>
+
+export type PossibleIconsName = 'ios-home-outline' | 'user'
+
+export type PossibleIcons = {
+	[keys: string]: PossibleIconsName
+}
