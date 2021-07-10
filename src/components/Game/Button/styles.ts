@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components/native'
-import getDimensions from '../../utils/getDimensions'
+import getDimensions from '../../../utils/getDimensions'
 
 interface GameButtonProps {
 	active: boolean

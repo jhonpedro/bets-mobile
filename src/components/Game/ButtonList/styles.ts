@@ -1,5 +1,5 @@
 import styled from 'styled-components/native'
-import getDimensions from '../../utils/getDimensions'
+import getDimensions from '../../../utils/getDimensions'
 
 export const GameButtonListContainer = styled.ScrollView`
 	height: ${getDimensions(3).rem};

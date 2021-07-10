@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
-import colors from '../../assets/colors'
-import getDimensions from '../../utils/getDimensions'
+import colors from '../../../assets/colors'
+import getDimensions from '../../../utils/getDimensions'
 
 interface RecentGameContainerProps {
 	borderColor: string

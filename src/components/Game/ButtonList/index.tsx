@@ -1,30 +1,30 @@
 import React from 'react'
 
-import { GamesI } from '../../@types'
-import GameButton from '../GameButton'
+import { GamesI } from '../../../@types'
+import GameButton from '../Button'
 
 import { GameButtonListContainer } from './styles'
 
 interface GameButtonListProps {
 	games: GamesI
 	activeGames: string[]
-	onAddToCurrentFilter: (type: string) => void
-	onRemoveFromCurrentFilter: (type: string) => void
+	onButtonPress: (type: string) => void
+	onButtonPressWhileActive?: (type: string) => void
 }
 
 const GameButtonList: React.FC<GameButtonListProps> = ({
 	games,
 	activeGames,
-	onAddToCurrentFilter,
-	onRemoveFromCurrentFilter,
+	onButtonPress,
+	onButtonPressWhileActive,
 }) => {
 	const handleOnGamePress = (type: string) => {
-		if (activeGames.includes(type)) {
-			onRemoveFromCurrentFilter(type)
+		if (onButtonPressWhileActive && activeGames.includes(type)) {
+			onButtonPressWhileActive(type)
 			return
 		}
 
-		onAddToCurrentFilter(type)
+		onButtonPress(type)
 	}
 
 	return (

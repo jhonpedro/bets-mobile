@@ -1,5 +1,5 @@
 import React from 'react'
-import { BetI } from '../../@types'
+import { BetI } from '../../../@types'
 
 import {
 	RecentGameContainer,
@@ -18,13 +18,13 @@ const RecentGame: React.FC<RecentGameProps> = ({
 	price,
 }) => {
 	const baseDate = new Date(created_at)
-	const dateFormated = `${baseDate.getDay()}/${baseDate.getMonth()}/${baseDate.getFullYear()}`
+	const dateFormatted = `${baseDate.getDay()}/${baseDate.getMonth()}/${baseDate.getFullYear()}`
 
 	return (
 		<RecentGameContainer borderColor={color}>
 			<NumbersContainer>{numbers.join(', ')}</NumbersContainer>
 			<DateAndPrice>
-				{`${dateFormated} - (R$ ${price.toLocaleString('pt-br', {
+				{`${dateFormatted} - (R$ ${price.toLocaleString('pt-br', {
 					style: 'currency',
 					currency: 'BRL',
 				})})`}
