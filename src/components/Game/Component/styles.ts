@@ -2,7 +2,7 @@ import styled from 'styled-components/native'
 import colors from '../../../assets/colors'
 import getDimensions from '../../../utils/getDimensions'
 
-interface RecentGameContainerProps {
+interface GameContainerProps {
 	borderColor: string
 }
 
@@ -10,11 +10,14 @@ interface GameTypeProps {
 	color: string
 }
 
-export const RecentGameContainer = styled.View<RecentGameContainerProps>`
+export const GameContainer = styled.View<GameContainerProps>`
 	border-left-width: 5px;
 	border-left-color: ${(props) => props.borderColor};
 	border-radius: 4px;
 
+	padding-top: ${getDimensions(0.5).rem};
+	padding-right: ${getDimensions(0.5).rem};
+	padding-bottom: ${getDimensions(0.5).rem};
 	padding-left: ${`${getDimensions(3).width}px`};
 
 	align-items: flex-start;
@@ -29,6 +32,17 @@ const baseText = styled.Text`
 
 export const NumbersContainer = styled(baseText)`
 	font-weight: bold;
+`
+
+export const DateAndPriceContainer = styled.View`
+	flex-direction: row;
+	align-self: stretch;
+	justify-content: space-between;
+	align-items: center;
+`
+
+export const RemovableContainer = styled.View`
+	margin-left: auto;
 `
 
 export const DateAndPrice = styled(baseText)`
