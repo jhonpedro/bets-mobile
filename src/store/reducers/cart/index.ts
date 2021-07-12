@@ -14,6 +14,7 @@ import {
 const initialValue = {
 	show: false,
 	items: [] as CartItem[],
+	total: 0,
 }
 
 const cartReducer = (state = initialValue, action: PossibleActions) =>
@@ -29,9 +30,11 @@ const cartReducer = (state = initialValue, action: PossibleActions) =>
 			}
 			case ADD_TO_CART: {
 				draft.items.push(action.payload.newItem)
+				draft.total += action.payload.newItem.price
 				break
 			}
 			case REMOVE_FROM_CART: {
+				draft.total -= draft.items[action.payload.cartItemIndex].price
 				draft.items.splice(action.payload.cartItemIndex, 1)
 				break
 			}
