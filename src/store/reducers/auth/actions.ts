@@ -1,5 +1,4 @@
-import { REHYDRATE } from 'redux-persist/es/constants'
-import { RootState } from '../..'
+import { RehydrateAction } from '../@types'
 import {
 	ActionLogin,
 	ActionLoginPayload,
@@ -22,11 +21,6 @@ export const actionLogIn = (payload: ActionLoginPayload): ActionLogin => ({
 })
 
 export const actionLogOut = (): ActionLogout => ({ type: LOG_OUT })
-
-type RehydrateAction = {
-	type: typeof REHYDRATE
-	payload: RootState | undefined
-}
 
 export type PossibleActions =
 	| ActionLogin
