@@ -7,7 +7,7 @@ export const LoginAnimationBox = styled.View`
 	flex: 1;
 	justify-content: center;
 	align-items: center;
-	height: ${`${getDimensions(110).height}px`};
+	height: ${`${getDimensions(40).height}px`};
 	background-color: ${colors.BG_LIGHT};
 	border-radius: ${getDimensions(2).rem};
 `
