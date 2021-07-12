@@ -26,7 +26,7 @@ export const SubTitle = styled(Text)`
 
 export const ContainerScrollView = styled.ScrollView`
 	align-self: stretch;
-	height: ${`${getDimensions(60).height}px`};
+	height: ${`${getDimensions(55).height}px`};
 `
 
 export const TextWarning = styled(Text)`
