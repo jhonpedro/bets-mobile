@@ -1,6 +1,7 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { BetI } from '../../../@types'
+import formatToReal from '../../../utils/formatToReal'
 
 import {
 	GameContainer,
@@ -35,10 +36,7 @@ const Game: React.FC<GameProps> = ({
 			<NumbersContainer>{numbers.join(', ')}</NumbersContainer>
 			<DateAndPriceContainer>
 				<DateAndPrice>
-					{`${dateFormatted} - (R$ ${price.toLocaleString('pt-br', {
-						style: 'currency',
-						currency: 'BRL',
-					})})`}
+					{`${dateFormatted} - (R$ ${formatToReal(price)}) `}
 				</DateAndPrice>
 				{removable && (
 					<RemovableContainer>
