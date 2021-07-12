@@ -1,7 +1,13 @@
 import { RehydrateAction } from '../@types'
-import { ActionAddToCart, ActionRemoveFromCart, CartItem } from '../@types/cart'
+import {
+	ActionAddToCart,
+	ActionClearCart,
+	ActionRemoveFromCart,
+	CartItem,
+} from '../@types/cart'
 import {
 	ADD_TO_CART,
+	CLEAR_CART,
 	HIDE_CART,
 	REMOVE_FROM_CART,
 	SHOW_CART,
@@ -35,10 +41,13 @@ export const actionRemoveFromCart = (
 	},
 })
 
+export const actionClearCart = (): ActionClearCart => ({ type: CLEAR_CART })
+
 export type PossibleActions =
 	| ActionShowCart
 	| ActionHideCart
 	| ActionAddToCart
 	| ActionRemoveFromCart
+	| ActionClearCart
 	| RehydrateAction
 	| { type: undefined }

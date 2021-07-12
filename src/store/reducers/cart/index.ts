@@ -5,6 +5,7 @@ import { CartItem } from '../@types/cart'
 import { PossibleActions } from './actions'
 import {
 	ADD_TO_CART,
+	CLEAR_CART,
 	HIDE_CART,
 	REMOVE_FROM_CART,
 	SHOW_CART,
@@ -32,6 +33,11 @@ const cartReducer = (state = initialValue, action: PossibleActions) =>
 			}
 			case REMOVE_FROM_CART: {
 				draft.items.splice(action.payload.cartItemIndex, 1)
+				break
+			}
+			case CLEAR_CART: {
+				draft.items = []
+				draft.show = false
 				break
 			}
 			default: {

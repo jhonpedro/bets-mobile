@@ -1,6 +1,5 @@
 import { BetI } from '../../../@types'
-import { ADD_TO_CART, REMOVE_FROM_CART } from '../cart/actionTypes'
-import { CallbackBasedSagaAction } from './sagas'
+import { ADD_TO_CART, CLEAR_CART, REMOVE_FROM_CART } from '../cart/actionTypes'
 
 export interface CartItem extends BetI {
 	game_id: number
@@ -20,6 +19,6 @@ export interface ActionRemoveFromCart {
 	}
 }
 
-export interface ActionNewPurchasePayload extends CallbackBasedSagaAction {
-	items: CartItem[]
+export interface ActionClearCart {
+	type: typeof CLEAR_CART
 }
