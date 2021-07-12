@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Ionicons } from '@expo/vector-icons'
 import { Alert } from 'react-native'
 
 import Header from '../../components/UI/Header'
@@ -18,15 +19,23 @@ import {
 import useLoading from '../../hooks/useLoading'
 import useAppDispatch from '../../hooks/useAppDispatch'
 import { actionLogOut } from '../../store/reducers/auth/actions'
+import { ReloadButtonContainer } from './styles'
+import getDimensions from '../../utils/getDimensions'
+import TextWithSVG from '../../components/TextWithSVG'
+import colors from '../../assets/colors'
 
 const Home = () => {
 	const dispatch = useAppDispatch()
-	const { show } = useLoading()
+	const [reload, setReload] = useState(0)
+	const { show, handleShow } = useLoading()
 	const games = useGetGames()
 	const [currentFilter, setCurrentFilter] = useState<Array<string>>([])
 	const [bets, setBets] = useState<BetsI>([])
 
 	useEffect(() => {
+		if (reload > 0) {
+			handleShow()
+		}
 		adonis
 			.get<BetsI>('/bets')
 			.then((response) => {
@@ -36,7 +45,16 @@ const Home = () => {
 				Alert.alert('An error occurred, try to login again!')
 				dispatch(actionLogOut())
 			})
-	}, [])
+			.finally(() => {
+				if (reload > 0) {
+					handleShow()
+				}
+			})
+	}, [reload])
+
+	const reloadBets = () => {
+		setReload((prevState) => prevState + 1)
+	}
 
 	const addToCurrentFilter = (toAdd: string) => {
 		setCurrentFilter((prevState) => [toAdd, ...prevState])
@@ -65,7 +83,20 @@ const Home = () => {
 								onButtonPress={addToCurrentFilter}
 								onButtonPressWhileActive={removeFromCurrentFilter}
 							/>
-
+							<ReloadButtonContainer onPress={reloadBets}>
+								<TextWithSVG
+									text="Reload games"
+									textColor={colors.TGL_GREEN}
+									fontSize={getDimensions(1).rem}
+									svg={
+										<Ionicons
+											name="reload-circle"
+											size={24}
+											color={colors.TGL_GREEN}
+										/>
+									}
+								/>
+							</ReloadButtonContainer>
 							<BetsContainer>
 								{bets
 									.filter((bet) => {
