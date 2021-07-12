@@ -55,6 +55,14 @@ const NewPurchase = () => {
 	}
 
 	const handleChangeCurrentBet = (numberToAdd: number) => {
+		if (currentGame.numbers.includes(numberToAdd)) {
+			setCurrentGame((prevState) => ({
+				...prevState,
+				numbers: prevState.numbers.filter((number) => number !== numberToAdd),
+			}))
+			return
+		}
+
 		if (currentGame.numbers.length === currentGame.gameInfo.max_number) {
 			Alert.alert(
 				'Max numbers per this bet achieved',
@@ -63,17 +71,9 @@ const NewPurchase = () => {
 			return
 		}
 
-		if (!currentGame.numbers.includes(numberToAdd)) {
-			setCurrentGame((prevState) => ({
-				...prevState,
-				numbers: [numberToAdd, ...prevState.numbers],
-			}))
-			return
-		}
-
 		setCurrentGame((prevState) => ({
 			...prevState,
-			numbers: prevState.numbers.filter((number) => number !== numberToAdd),
+			numbers: [numberToAdd, ...prevState.numbers],
 		}))
 	}
 
@@ -109,7 +109,7 @@ const NewPurchase = () => {
 				id: Date.now(),
 				type: currentGame.gameInfo.type,
 				game_id: currentGame.gameInfo.id,
-				numbers: currentGame.numbers,
+				numbers: currentGame.numbers.sort((a, b) => a - b),
 				color: currentGame.gameInfo.color,
 				created_at: new Date(),
 				price: currentGame.gameInfo.price,
