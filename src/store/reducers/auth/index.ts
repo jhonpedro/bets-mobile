@@ -17,7 +17,9 @@ const authReducer = (state = initialValue, action: PossibleActions) =>
 			case LOG_IN: {
 				draft.isLoggedIn = true
 				draft.token = action.payload.token
-				adonis.defaults.headers['Authorization'] = action.payload.token
+				adonis.defaults.headers[
+					'Authorization'
+				] = `Bearer ${action.payload.token}`
 				break
 			}
 			case LOG_OUT: {
