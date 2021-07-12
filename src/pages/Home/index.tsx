@@ -2,19 +2,18 @@ import React, { useState, useEffect } from 'react'
 
 import Header from '../../components/UI/Header'
 import useGetGames from '../../hooks/useGetGames'
-import GameButtonList from '../../components/GameButtonList'
+import GameButtonList from '../../components/Game/ButtonList'
 import { BetsI } from '../../@types'
 import adonis from '../../services/adonis'
-import RecentGame from '../../components/RecentGame'
-
+import Game from '../../components/Game/Component'
 import {
-	HomeContainer,
+	Container as HomeContainer,
 	SubTitle,
 	Title,
-	BetsContainer,
-	ContentContainer,
-	NoBets,
-} from './styles'
+	ContainerScrollView as BetsContainer,
+	TextWarning as NoBets,
+} from '../../components/UI/Common/styles'
+
 import useLoading from '../../hooks/useLoading'
 
 const Home = () => {
@@ -44,7 +43,7 @@ const Home = () => {
 			<Header />
 			<HomeContainer>
 				<Title>Recent Games</Title>
-				<ContentContainer>
+				<>
 					{bets.length === 0 && !show ? (
 						<NoBets>We did not found any bets.</NoBets>
 					) : (
@@ -53,8 +52,8 @@ const Home = () => {
 							<GameButtonList
 								games={games}
 								activeGames={currentFilter}
-								onAddToCurrentFilter={addToCurrentFilter}
-								onRemoveFromCurrentFilter={removeFromCurrentFilter}
+								onButtonPress={addToCurrentFilter}
+								onButtonPressWhileActive={removeFromCurrentFilter}
 							/>
 
 							<BetsContainer>
@@ -66,7 +65,7 @@ const Home = () => {
 										return currentFilter.includes(bet.type)
 									})
 									.map((bet) => (
-										<RecentGame
+										<Game
 											key={bet.id}
 											id={bet.id}
 											color={bet.color}
@@ -79,7 +78,7 @@ const Home = () => {
 							</BetsContainer>
 						</>
 					)}
-				</ContentContainer>
+				</>
 			</HomeContainer>
 		</>
 	)
