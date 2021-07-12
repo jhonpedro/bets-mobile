@@ -8,6 +8,7 @@ const colors = {
 	BORDER: '#DDDDDD',
 	BORDER_INPUTS: '#EBEBEB',
 	ICONS_DARK_LIGHT: '#C1C1C1',
+	BUTTON: '#ADC0C4',
 }
 
 export default colors
