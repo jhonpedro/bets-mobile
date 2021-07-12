@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert, TouchableOpacity } from 'react-native'
+import { Alert } from 'react-native'
 import {
 	Ionicons,
 	MaterialCommunityIcons,
@@ -22,6 +22,7 @@ import {
 	CartTotal,
 	CartTotalContainer,
 	CloseCartIconContainer,
+	CloseCartTouchableOpacity,
 	GameCartContainer,
 	GamesScrollView,
 	SaveButtonContainer,
@@ -33,10 +34,11 @@ import Game from '../../Game/Component'
 import TextWithSVG from '../../TextWithSVG'
 import getDimensions from '../../../utils/getDimensions'
 import adonis from '../../../services/adonis'
+import formatToReal from '../../../utils/formatToReal'
 
 const Cart = () => {
 	const dispatch = useAppDispatch()
-	const { items } = cartSelector()
+	const { items, total } = cartSelector()
 
 	const handleHideCart = () => dispatch(actionHideCart())
 
@@ -72,9 +74,9 @@ const Cart = () => {
 		<CartAnimation>
 			<CartContainer>
 				<CloseCartIconContainer>
-					<TouchableOpacity onPress={handleHideCart}>
+					<CloseCartTouchableOpacity onPress={handleHideCart}>
 						<Ionicons name="close-sharp" size={30} color={colors.TGL_GREEN} />
-					</TouchableOpacity>
+					</CloseCartTouchableOpacity>
 				</CloseCartIconContainer>
 				<CartContent>
 					<CartTitle>
@@ -118,7 +120,7 @@ const Cart = () => {
 							<TextStrong>Cart </TextStrong>
 							Total:
 						</CartTotal>
-						<TextStrong>00.00</TextStrong>
+						<TextStrong>R$ {formatToReal(total)}</TextStrong>
 					</CartTotalContainer>
 					<SaveButtonContainer onPress={handleSubmitNewPurchase}>
 						<TextWithSVG
