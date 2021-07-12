@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Alert } from 'react-native'
 
 import Header from '../../components/UI/Header'
 import useGetGames from '../../hooks/useGetGames'
@@ -15,17 +16,26 @@ import {
 } from '../../components/UI/Common/styles'
 
 import useLoading from '../../hooks/useLoading'
+import useAppDispatch from '../../hooks/useAppDispatch'
+import { actionLogOut } from '../../store/reducers/auth/actions'
 
 const Home = () => {
+	const dispatch = useAppDispatch()
 	const { show } = useLoading()
 	const games = useGetGames()
 	const [currentFilter, setCurrentFilter] = useState<Array<string>>([])
 	const [bets, setBets] = useState<BetsI>([])
 
 	useEffect(() => {
-		adonis.get<BetsI>('/bets').then((response) => {
-			setBets(response.data)
-		})
+		adonis
+			.get<BetsI>('/bets')
+			.then((response) => {
+				setBets(response.data)
+			})
+			.catch(() => {
+				Alert.alert('An error occurred, try to login again!')
+				dispatch(actionLogOut())
+			})
 	}, [])
 
 	const addToCurrentFilter = (toAdd: string) => {
