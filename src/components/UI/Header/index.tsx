@@ -1,17 +1,31 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
-import { Feather } from '@expo/vector-icons'
+import { Feather, MaterialCommunityIcons } from '@expo/vector-icons'
 
 import colors from '../../../assets/colors'
 import useAppDispatch from '../../../hooks/useAppDispatch'
 
-import { HeaderContainer, BrandContainer, TGL, Line } from './styles'
+import {
+	HeaderContainer,
+	BrandContainer,
+	TGL,
+	Line,
+	ActionsContainer,
+	CartTouchableOpacity,
+} from './styles'
 import { actionLogOut } from '../../../store/reducers/auth/actions'
+import { actionShowCart } from '../../../store/reducers/cart/actions'
 
-const Header = () => {
+interface HeaderProps {
+	showCart?: boolean
+}
+
+const Header: React.FC<HeaderProps> = ({ showCart }) => {
 	const dispatch = useAppDispatch()
 
 	const handleLogout = () => dispatch(actionLogOut())
+
+	const handleShowCart = () => dispatch(actionShowCart())
 
 	return (
 		<HeaderContainer>
@@ -19,9 +33,20 @@ const Header = () => {
 				<TGL>TGL</TGL>
 				<Line />
 			</BrandContainer>
-			<TouchableOpacity onPress={handleLogout}>
-				<Feather name="log-out" size={30} color={colors.ICONS_DARK_LIGHT} />
-			</TouchableOpacity>
+			<ActionsContainer>
+				{showCart && (
+					<CartTouchableOpacity onPress={handleShowCart}>
+						<MaterialCommunityIcons
+							name="cart-minus"
+							size={30}
+							color={colors.ICONS_DARK_LIGHT}
+						/>
+					</CartTouchableOpacity>
+				)}
+				<TouchableOpacity onPress={handleLogout}>
+					<Feather name="log-out" size={30} color={colors.ICONS_DARK_LIGHT} />
+				</TouchableOpacity>
+			</ActionsContainer>
 		</HeaderContainer>
 	)
 }

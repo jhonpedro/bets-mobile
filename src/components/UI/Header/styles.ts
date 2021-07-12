@@ -31,3 +31,11 @@ export const Line = styled.Text`
 	border-radius: ${getDimensions(1).rem};
 	background-color: ${colors.TGL_GREEN};
 `
+
+export const ActionsContainer = styled.View`
+	flex-direction: row;
+`
+
+export const CartTouchableOpacity = styled.TouchableOpacity`
+	margin-right: ${getDimensions(2).rem};
+`
