@@ -83,7 +83,7 @@ const NewPurchase = () => {
 			numbers: fulfillArrayRandomNumbers(
 				prevState.numbers,
 				prevState.gameInfo.max_number,
-				0,
+				1,
 				prevState.gameInfo.range
 			),
 		}))
