@@ -71,6 +71,20 @@ const Home = () => {
 			<Header />
 			<HomeContainer>
 				<Title>Recent Games</Title>
+				<ReloadButtonContainer onPress={reloadBets}>
+					<TextWithSVG
+						text="Reload games"
+						textColor={colors.TGL_GREEN}
+						fontSize={getDimensions(1).rem}
+						svg={
+							<Ionicons
+								name="reload-circle"
+								size={24}
+								color={colors.TGL_GREEN}
+							/>
+						}
+					/>
+				</ReloadButtonContainer>
 				<>
 					{bets.length === 0 && !show ? (
 						<NoBets>We did not found any bets.</NoBets>
@@ -83,20 +97,6 @@ const Home = () => {
 								onButtonPress={addToCurrentFilter}
 								onButtonPressWhileActive={removeFromCurrentFilter}
 							/>
-							<ReloadButtonContainer onPress={reloadBets}>
-								<TextWithSVG
-									text="Reload games"
-									textColor={colors.TGL_GREEN}
-									fontSize={getDimensions(1).rem}
-									svg={
-										<Ionicons
-											name="reload-circle"
-											size={24}
-											color={colors.TGL_GREEN}
-										/>
-									}
-								/>
-							</ReloadButtonContainer>
 							<BetsContainer>
 								{bets
 									.filter((bet) => {
