@@ -37,3 +37,8 @@ export type PossibleIconsName = 'ios-home-outline' | 'user'
 export type PossibleIcons = {
 	[keys: string]: PossibleIconsName
 }
+
+export interface User {
+	name: string
+	email: string
+}
