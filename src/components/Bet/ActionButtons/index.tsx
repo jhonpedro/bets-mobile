@@ -3,6 +3,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import ButtonOutline from '../ButtonOutline'
 import { ActionButtonsContainer } from './styles'
+import getDimensions from '../../../utils/getDimensions'
 
 interface ActionButtonsProps {
 	onComplete: () => void
@@ -16,11 +17,26 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
 	onAddToCart,
 }) => (
 	<ActionButtonsContainer>
-		<ButtonOutline title="Complete game" onPress={onComplete} />
-		<ButtonOutline title="Clear game" onPress={onClear} />
+		<ButtonOutline
+			title="Complete game"
+			onPress={onComplete}
+			titleSize={getDimensions(0.9).rem}
+		/>
+		<ButtonOutline
+			title="Clear game"
+			onPress={onClear}
+			titleSize={getDimensions(0.9).rem}
+		/>
 		<ButtonOutline
 			title="Add to cart"
-			icon={<MaterialCommunityIcons name="cart-minus" size={20} color="#FFF" />}
+			icon={
+				<MaterialCommunityIcons
+					name="cart-minus"
+					size={20}
+					color="#FFF"
+					titleSize={getDimensions(0.9).rem}
+				/>
+			}
 			onPress={onAddToCart}
 			withBackground
 		/>
