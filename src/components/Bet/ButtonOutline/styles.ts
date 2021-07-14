@@ -1,6 +1,5 @@
 import styled from 'styled-components/native'
 import colors from '../../../assets/colors'
-import getDimensions from '../../../utils/getDimensions'
 
 interface ActionButtonBetProps {
 	background?: boolean
@@ -8,6 +7,7 @@ interface ActionButtonBetProps {
 
 interface ActionButtonLabelProps {
 	color: string
+	size: string
 }
 
 export const ActionButtonBet = styled.TouchableOpacity<ActionButtonBetProps>`
@@ -17,7 +17,6 @@ export const ActionButtonBet = styled.TouchableOpacity<ActionButtonBetProps>`
 	align-items: center;
 	justify-content: center;
 
-	flex: 1;
 	flex-direction: row;
 
 	margin-left: 5px;
@@ -31,7 +30,7 @@ export const ActionButtonBet = styled.TouchableOpacity<ActionButtonBetProps>`
 export const ActionButtonLabel = styled.Text<ActionButtonLabelProps>`
 	color: ${(props) => props.color};
 	font-weight: bold;
-	font-size: ${getDimensions(0.7).rem};
+	font-size: ${(props) => props.size};
 `
 
 export const IconContainer = styled.View`
