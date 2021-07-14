@@ -1,0 +1,2 @@
+export const SHOW_MODAL = 'SHOW_MODAL'
+export const WITHDRAW_MODAL = 'WITHDRAW_MODAL'
