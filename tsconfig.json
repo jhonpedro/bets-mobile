@@ -4,5 +4,6 @@
 		"strict": true,
 		"esModuleInterop": true
 	},
-	"typeRoots": ["./src/@types"]
+	"typeRoots": ["./src/@types"],
+	"exclude": ["node_modules"]
 }
