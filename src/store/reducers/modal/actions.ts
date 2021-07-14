@@ -16,7 +16,7 @@ export const actionShowModal = ({
 	},
 })
 
-export const actionWithdrawModal = () => ({
+export const actionWithdrawModal = (): ActionWithdrawModal => ({
 	type: WITHDRAW_MODAL,
 })
 
