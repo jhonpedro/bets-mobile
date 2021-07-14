@@ -67,7 +67,7 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
 				dispatch(
 					actionShowModal({
 						title: 'Oops!',
-						message: error.response.data[0]
+						message: error.response
 							? error.response.data[0].message
 							: 'Our machines stopped, sorry, we are putting them on again. Try again later!',
 					})

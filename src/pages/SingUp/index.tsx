@@ -78,7 +78,7 @@ const SingUp: React.FC<LoginProps> = ({ navigation }) => {
 				})
 			)
 		} catch (error) {
-			if (error.response.data[0]) {
+			if (error.response) {
 				dispatch(
 					actionShowModal({
 						title: 'Oops!',
