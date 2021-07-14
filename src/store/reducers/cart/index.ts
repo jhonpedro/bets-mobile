@@ -40,6 +40,7 @@ const cartReducer = (state = initialValue, action: PossibleActions) =>
 			}
 			case CLEAR_CART: {
 				draft.items = []
+				draft.total = 0
 				draft.show = false
 				break
 			}
