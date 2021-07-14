@@ -39,7 +39,9 @@ const cartReducer = (state = initialValue, action: PossibleActions) =>
 				break
 			}
 			case CLEAR_CART: {
-				draft = initialValue
+				draft.items = []
+				draft.total = 0
+				draft.show = false
 				break
 			}
 			default: {
