@@ -9,6 +9,7 @@ import { LoadingProvider } from './src/hooks/useLoading'
 import Loading from './src/components/UI/Loading'
 import store, { persistor } from './src/store'
 import colors from './src/assets/colors'
+import Modal from './src/components/Modal/Component'
 
 export default function App() {
 	return (
@@ -23,6 +24,7 @@ export default function App() {
 					<PersistGate loading={<Loading instantShow />} persistor={persistor}>
 						<Routes />
 						<Loading />
+						<Modal />
 						<StatusBar style="auto" />
 					</PersistGate>
 				</Provider>
