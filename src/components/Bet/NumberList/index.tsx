@@ -1,7 +1,7 @@
 import React from 'react'
 
-import BetButton from '../Button'
-import { BetButtonListContainer } from './styles'
+import Number from '../Number'
+import { BetNumberListContainer } from './styles'
 
 interface BetButtonListProps {
 	range: number
@@ -10,26 +10,25 @@ interface BetButtonListProps {
 	onNumberPress: (number: number) => void
 }
 
-const BetButtonList: React.FC<BetButtonListProps> = ({
+const BetNumberList: React.FC<BetButtonListProps> = ({
 	range,
 	color,
 	activeNumbers,
 	onNumberPress,
 }) => (
-	<BetButtonListContainer
+	<BetNumberListContainer
 		contentContainerStyle={{
 			flexDirection: 'row',
 			flexWrap: 'wrap',
 			justifyContent: 'space-evenly',
 		}}
 	>
-		{/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
 		{new Array(range).fill(null).map((_, index) => {
 			const number = index + 1
 			const isActive = activeNumbers.includes(number)
 
 			return (
-				<BetButton
+				<Number
 					key={number}
 					color={color}
 					active={isActive}
@@ -38,7 +37,7 @@ const BetButtonList: React.FC<BetButtonListProps> = ({
 				/>
 			)
 		})}
-	</BetButtonListContainer>
+	</BetNumberListContainer>
 )
 
-export default BetButtonList
+export default BetNumberList
