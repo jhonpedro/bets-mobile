@@ -20,7 +20,7 @@ const modalReducer = (state = initialValue, action: PossibleActions) =>
 				break
 			}
 			case WITHDRAW_MODAL: {
-				draft = initialValue
+				draft.showing = false
 				break
 			}
 			default: {
