@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Alert } from 'react-native'
 
 import {
 	Container as NewPurchaseContainer,
@@ -11,13 +10,14 @@ import Header from '../../components/UI/Header'
 import useGetGames from '../../hooks/useGetGames'
 import GameButtonList from '../../components/Game/ButtonList'
 import { GameI } from '../../@types'
-import BetButtonList from '../../components/Bet/ButtonList'
+import BetNumberList from '../../components/Bet/NumberList'
 import Cart from '../../components/Cart/Component'
 import { GameDescription } from './styles'
 import ActionButtons from '../../components/Bet/ActionButtons'
 import fulfillArrayRandomNumbers from '../../utils/fulfillArrayRandomNumbers'
 import useAppDispatch from '../../hooks/useAppDispatch'
 import { actionAddToCart } from '../../store/reducers/cart/actions'
+import { actionShowModal } from '../../store/reducers/modal/actions'
 
 interface CurrentGameI {
 	gameInfo: GameI
@@ -64,9 +64,11 @@ const NewPurchase = () => {
 		}
 
 		if (currentGame.numbers.length === currentGame.gameInfo.max_number) {
-			Alert.alert(
-				'Max numbers per this bet achieved',
-				'Try add this to cart and create another bet!'
+			dispatch(
+				actionShowModal({
+					title: 'Max numbers per this bet achieved',
+					message: 'Try add this to cart and create another bet!',
+				})
 			)
 			return
 		}
@@ -97,9 +99,11 @@ const NewPurchase = () => {
 		if (currentGame.numbers.length !== currentGame.gameInfo.max_number) {
 			const diff = currentGame.gameInfo.max_number - currentGame.numbers.length
 			const textNumber = diff > 1 ? 'numbers' : 'number'
-			Alert.alert(
-				'More numbers!',
-				`You need to add ${diff} more ${textNumber} `
+			dispatch(
+				actionShowModal({
+					title: 'More numbers!',
+					message: `You need to add ${diff} more ${textNumber} `,
+				})
 			)
 			return
 		}
@@ -118,9 +122,11 @@ const NewPurchase = () => {
 
 		handleClearGame()
 
-		Alert.alert(
-			'Added to cart!',
-			'Your bet was added to the cart, you can check it now!'
+		dispatch(
+			actionShowModal({
+				title: 'Added to cart!',
+				message: 'Your bet was added to the cart, you can check it now!',
+			})
 		)
 	}
 
@@ -149,7 +155,7 @@ const NewPurchase = () => {
 								onAddToCart={handleAddToCart}
 							/>
 						)}
-						<BetButtonList
+						<BetNumberList
 							color={currentGame.gameInfo.color}
 							activeNumbers={currentGame.numbers}
 							onNumberPress={handleChangeCurrentBet}

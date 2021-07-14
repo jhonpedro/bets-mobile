@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert } from 'react-native'
+
 import {
 	Ionicons,
 	MaterialCommunityIcons,
@@ -35,6 +35,7 @@ import TextWithSVG from '../../TextWithSVG'
 import getDimensions from '../../../utils/getDimensions'
 import adonis from '../../../services/adonis'
 import formatToReal from '../../../utils/formatToReal'
+import { actionShowModal } from '../../../store/reducers/modal/actions'
 
 const Cart = () => {
 	const dispatch = useAppDispatch()
@@ -61,12 +62,20 @@ const Cart = () => {
 
 			dispatch(actionClearCart())
 
-			Alert.alert(
-				'Success',
-				'Your bets were registered, you can see them in the home page now!'
+			dispatch(
+				actionShowModal({
+					title: 'Success',
+					message:
+						'Your bets were registered, you can see them in the home page now!',
+				})
 			)
 		} catch {
-			Alert.alert('Error', 'There were an error in your bets, try again later!')
+			dispatch(
+				actionShowModal({
+					title: 'Error',
+					message: 'There were an error in your bets, try again later!',
+				})
+			)
 		}
 	}
 

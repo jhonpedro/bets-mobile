@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert, TouchableOpacity, Keyboard } from 'react-native'
+import { TouchableOpacity, Keyboard } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import { StackNavigationProp } from '@react-navigation/stack'
 
@@ -25,6 +25,7 @@ import {
 	FooterContentContainer,
 	ForgotPasswordText,
 } from './styles'
+import { actionShowModal } from '../../store/reducers/modal/actions'
 
 interface LoginProps {
 	navigation: StackNavigationProp<AuthStackList>
@@ -63,11 +64,13 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
 			password: passwordInput,
 			callbackFinally: handleShow,
 			callbackError: (error) => {
-				Alert.alert(
-					'Oops!',
-					error.response.data[0]
-						? error.response.data[0].message
-						: 'Our machines stopped, sorry, we are putting them on again. Try again later!'
+				dispatch(
+					actionShowModal({
+						title: 'Oops!',
+						message: error.response.data[0]
+							? error.response.data[0].message
+							: 'Our machines stopped, sorry, we are putting them on again. Try again later!',
+					})
 				)
 			},
 		})

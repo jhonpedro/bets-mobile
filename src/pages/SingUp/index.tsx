@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert, TouchableOpacity, Keyboard } from 'react-native'
+import { TouchableOpacity, Keyboard } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import { StackNavigationProp } from '@react-navigation/stack'
 
@@ -19,6 +19,8 @@ import useTextInput from '../../hooks/useTextInput'
 import emailValidator from '../../utils/emailValidator'
 import adonis from '../../services/adonis'
 import useLoading from '../../hooks/useLoading'
+import useAppDispatch from '../../hooks/useAppDispatch'
+import { actionShowModal } from '../../store/reducers/modal/actions'
 
 interface LoginProps {
 	navigation: StackNavigationProp<AuthStackList>
@@ -47,6 +49,7 @@ const SingUp: React.FC<LoginProps> = ({ navigation }) => {
 		passwordInputOnBlur,
 	] = useTextInput((toValidate) => toValidate.length >= 6)
 	const { handleShow } = useLoading()
+	const dispatch = useAppDispatch()
 
 	const handleSingIn = async () => {
 		if (!isNameInputValid || !isEmailInputValid || !isPasswordInputValid) {
@@ -68,13 +71,28 @@ const SingUp: React.FC<LoginProps> = ({ navigation }) => {
 			})
 
 			navigation.navigate('Login')
-			Alert.alert('Success', 'You have created your account!')
+			dispatch(
+				actionShowModal({
+					title: 'Success',
+					message: 'You have created your account!',
+				})
+			)
 		} catch (error) {
 			if (error.response.data[0]) {
-				Alert.alert('Oops!', error.response.data[0].message)
+				dispatch(
+					actionShowModal({
+						title: 'Oops!',
+						message: error.response.data[0].message,
+					})
+				)
 				return
 			}
-			Alert.alert('Oops!', 'An error occurred, try again later')
+			dispatch(
+				actionShowModal({
+					title: 'Oops!',
+					message: 'An error occurred, try again later',
+				})
+			)
 		} finally {
 			handleShow()
 		}

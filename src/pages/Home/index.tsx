@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react'
-import { Alert } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 
 import Header from '../../components/UI/Header'
@@ -19,6 +18,7 @@ import {
 import useLoading from '../../hooks/useLoading'
 import useAppDispatch from '../../hooks/useAppDispatch'
 import { actionLogOut } from '../../store/reducers/auth/actions'
+import { actionShowModal } from '../../store/reducers/modal/actions'
 
 const Home = () => {
 	const dispatch = useAppDispatch()
@@ -39,7 +39,12 @@ const Home = () => {
 
 			setBets(response.data)
 		} catch (error) {
-			Alert.alert('An error occurred, try to login again!')
+			dispatch(
+				actionShowModal({
+					title: 'Error',
+					message: 'An error occurred, try to login again!',
+				})
+			)
 
 			dispatch(actionLogOut())
 		}
