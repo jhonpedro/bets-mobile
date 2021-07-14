@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { Ionicons } from '@expo/vector-icons'
+import React, { useState, useCallback } from 'react'
 import { Alert } from 'react-native'
+import { useFocusEffect } from '@react-navigation/native'
 
 import Header from '../../components/UI/Header'
 import useGetGames from '../../hooks/useGetGames'
@@ -19,41 +19,30 @@ import {
 import useLoading from '../../hooks/useLoading'
 import useAppDispatch from '../../hooks/useAppDispatch'
 import { actionLogOut } from '../../store/reducers/auth/actions'
-import { ReloadButtonContainer } from './styles'
-import getDimensions from '../../utils/getDimensions'
-import TextWithSVG from '../../components/TextWithSVG'
-import colors from '../../assets/colors'
 
 const Home = () => {
 	const dispatch = useAppDispatch()
-	const [reload, setReload] = useState(0)
-	const { show, handleShow } = useLoading()
+	const { show } = useLoading()
 	const games = useGetGames()
 	const [currentFilter, setCurrentFilter] = useState<Array<string>>([])
 	const [bets, setBets] = useState<BetsI>([])
 
-	useEffect(() => {
-		if (reload > 0) {
-			handleShow()
-		}
-		adonis
-			.get<BetsI>('/bets')
-			.then((response) => {
-				setBets(response.data)
-			})
-			.catch(() => {
-				Alert.alert('An error occurred, try to login again!')
-				dispatch(actionLogOut())
-			})
-			.finally(() => {
-				if (reload > 0) {
-					handleShow()
-				}
-			})
-	}, [reload])
+	useFocusEffect(
+		useCallback(() => {
+			getBets()
+		}, [])
+	)
 
-	const reloadBets = () => {
-		setReload((prevState) => prevState + 1)
+	const getBets = async () => {
+		try {
+			const response = await adonis.get<BetsI>('/bets')
+
+			setBets(response.data)
+		} catch (error) {
+			Alert.alert('An error occurred, try to login again!')
+
+			dispatch(actionLogOut())
+		}
 	}
 
 	const addToCurrentFilter = (toAdd: string) => {
@@ -71,20 +60,6 @@ const Home = () => {
 			<Header />
 			<HomeContainer>
 				<Title>Recent Games</Title>
-				<ReloadButtonContainer onPress={reloadBets}>
-					<TextWithSVG
-						text="Reload games"
-						textColor={colors.TGL_GREEN}
-						fontSize={getDimensions(1).rem}
-						svg={
-							<Ionicons
-								name="reload-circle"
-								size={24}
-								color={colors.TGL_GREEN}
-							/>
-						}
-					/>
-				</ReloadButtonContainer>
 				<>
 					{bets.length === 0 && !show ? (
 						<NoBets>We did not found any bets.</NoBets>
@@ -97,7 +72,7 @@ const Home = () => {
 								onButtonPress={addToCurrentFilter}
 								onButtonPressWhileActive={removeFromCurrentFilter}
 							/>
-							<BetsContainer>
+							<BetsContainer onScrollToTop={() => console.log('reload')}>
 								{bets
 									.filter((bet) => {
 										if (currentFilter.length === 0) {
