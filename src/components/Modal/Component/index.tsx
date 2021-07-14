@@ -2,6 +2,7 @@ import React from 'react'
 import useAppDispatch from '../../../hooks/useAppDispatch'
 import { actionWithdrawModal } from '../../../store/reducers/modal/actions'
 import modalSelector from '../../../store/selectors/modalSelector'
+import getDimensions from '../../../utils/getDimensions'
 import ButtonOutline from '../../Bet/ButtonOutline'
 import ModalAnimation from '../Animation'
 import {
@@ -25,7 +26,11 @@ const Modal = () => {
 				<ModalTitle>{title}</ModalTitle>
 				<ModalMessage>{message}</ModalMessage>
 				<ButtonsContainer>
-					<ButtonOutline title="Close" onPress={handleWithdrawModal} />
+					<ButtonOutline
+						title="Close"
+						onPress={handleWithdrawModal}
+						titleSize={getDimensions(1).rem}
+					/>
 				</ButtonsContainer>
 			</ModalContainer>
 		</ModalAnimation>
